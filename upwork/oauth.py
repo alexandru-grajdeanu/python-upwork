@@ -86,6 +86,7 @@ class OAuth(Namespace):
         """
         client = oauth.Client(self.get_oauth_consumer())
         response, content = client.request(self.request_token_url, 'POST')
+        content = content.decode()
         if response.get('status') != '200':
             raise Exception(
                 "Invalid request token response: {0}.".format(content))
@@ -122,6 +123,7 @@ class OAuth(Namespace):
         token.set_verifier(verifier)
         client = oauth.Client(self.get_oauth_consumer(), token)
         response, content = client.request(self.access_token_url, 'POST')
+        content = content.decode()
         if response.get('status') != '200':
             raise Exception(
                 "Invalid access token response: {0}.".format(content))
